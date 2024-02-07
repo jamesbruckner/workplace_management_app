@@ -4,3 +4,4 @@ CREATE DATABASE workplace_management_db;
 
 USE workplace_management_db;
 
+
