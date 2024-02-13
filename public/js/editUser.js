@@ -27,7 +27,7 @@ const editEmp = async (event) => {
         });
 
         if (response.ok) {
-            document.location.replace('/');
+            document.location.replace('/users');
             // document.location.replace('/users');
         } else {
             alert('Error in submiting form');

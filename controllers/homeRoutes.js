@@ -3,20 +3,20 @@ const { User, Departments, Reports, Chores, Schedules, DepEmployees } = require(
 const withAuth = require('../utils/auth');
 const isManager = require('../utils/isManager');
 
-router.get('/profile', withAuth, async (req, res) => {
-    try {
-        const userData = await User.findByPk(req.session.user_id, {
-            attributes: { exclude: ['password'] },
-        });
+// router.get('/profile', withAuth, async (req, res) => {
+//     try {
+//         const userData = await User.findByPk(req.session.user_id, {
+//             attributes: { exclude: ['password'] },
+//         });
 
-        const user = userData.get({ plain: true });
-        const isManager = user.is_manager;
+//         const user = userData.get({ plain: true });
+//         const isManager = user.is_manager;
 
-        res.render('user', { user, logged_in: true });
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
+//         res.render('user', { user, logged_in: true });
+//     } catch (err) {
+//         res.status(500).json(err);
+//     }
+// });
 
 router.get('/users', withAuth, async (req, res) => {
 
@@ -26,11 +26,10 @@ router.get('/users', withAuth, async (req, res) => {
             include: [{model: Departments, through: DepEmployees, as: 'users_department', attributes: ['department_name']}],
         });
 
-        console.log(userData);
-        
-
         // Serialize data so the template can read it
         const users = userData.map((user) => user.get({ plain: true }));
+        // console.log(users[1].users_department)
+        
 
         
         res.render('employees', {
@@ -44,6 +43,7 @@ router.get('/users', withAuth, async (req, res) => {
 });
 
 router.get('/users/edit', isManager, async (req, res) => {
+    console.log('YOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO')
     try {
         const userData = await User.findAll();
 
@@ -101,7 +101,7 @@ router.get('/', async (req, res) => {
             logged_in: req.session.logged_in,
             is_manager: req.session.is_manager
         });
-        console.log(req.session.logged_in);
+        // console.log(req.session.logged_in);
     } catch (err) {
         res.status(500).json(err);
     }
