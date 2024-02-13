@@ -26,7 +26,7 @@ router.get('/users', withAuth, async (req, res) => {
             include: [{model: Departments, through: DepEmployees, as: 'users_department', attributes: ['department_name']}],
         });
 
-        console.log(userData);
+        // console.log(userData);
         
 
         // Serialize data so the template can read it
@@ -44,6 +44,7 @@ router.get('/users', withAuth, async (req, res) => {
 });
 
 router.get('/users/edit', isManager, async (req, res) => {
+    console.log('YOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO')
     try {
         const userData = await User.findAll();
 
@@ -101,7 +102,7 @@ router.get('/', async (req, res) => {
             logged_in: req.session.logged_in,
             is_manager: req.session.is_manager
         });
-        console.log(req.session.logged_in);
+        // console.log(req.session.logged_in);
     } catch (err) {
         res.status(500).json(err);
     }

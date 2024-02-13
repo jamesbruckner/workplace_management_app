@@ -13,21 +13,21 @@ router.get('/', async (req, res) => {
 });
 
 
-router.post('/', async (req, res) => {
-    try {
-        const userData = await User.create(req.body);
+// router.post('/', async (req, res) => {
+//     try {
+//         const userData = await User.create(req.body);
 
 
-        req.session.save(() => {
-            req.session.user_id = userData.id;
-            req.session.logged_in = true;
+//         req.session.save(() => {
+//             req.session.user_id = userData.id;
+//             req.session.logged_in = true;
 
-            res.status(200).json(userData);
-        });
-    } catch (err) {
-        res.status(400).json(err);
-    }
-});
+//             res.status(200).json(userData);
+//         });
+//     } catch (err) {
+//         res.status(400).json(err);
+//     }
+// });
 
 router.post('/login', async (req, res) => {
     try {
@@ -45,7 +45,12 @@ router.post('/login', async (req, res) => {
             return;
         }
 
+
+        console.log('USERDATA: ' + userData);
+
         const isManagerC = userData.is_manager;
+        console.log('check manager: ' + isManagerC);
+        
 
         req.session.save(() => {
             req.session.user_id = userData.id;
@@ -77,13 +82,13 @@ router.post('/signup/', async (req, res) => {
 
         let isManagerC = userData.is_manager
 
-        console.log(makeNewUser);
+        // console.log(makeNewUser);
         req.session.save(() => {
             req.session.user_id = userData.id;
             req.session.logged_in = true;
             req.session.is_manager = isManagerC;
 
-            res.json({ user: makeNewUser, message: 'You are now logged in!' });
+            res.json({ user: userData, message: 'You are now logged in!' });
         });
     } catch (err) {
         res.status(400).json(err);
