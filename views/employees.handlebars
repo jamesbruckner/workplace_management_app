@@ -4,21 +4,24 @@
     </h2>
     <ul id="list">
         {{#each users as |user|}}
+        
         <li class="text" id="{{user.id}}">
             <div class="titleBar row justify-content-between">
                 <h1 class="col text-start">{{user.first_name}} {{user.last_name}}</h1>
                 <h1 class="col text-end">{{user.username}}</h1>
             </div>
             <div class="infoBody" hidden>
-                {{!-- <p>{{user.users_department.department_name}}</p> --}}
+                {{#each user.users_department as |department|}}
+                <p>{{department.department_name}}</p>
+                {{/each}}
+
 
                 {{!-- if we get chores working ad them here --}}
-                {{!-- w --}}
-                {{!-- <div class="row"> --}}
 
-                    {{!-- <p class="text-end names mb-0 col">Reported by: <b> {{report.user.first_name}}{{!--
-                            {{report.user.last_name}}{{!-- </b></p> --}}
-                    {{!-- </div> --}}
+                {{!-- <div class="row">
+                    <p class="text-end names mb-0 col">Reported by: <b>{{report.user.first_name}}
+                            {{report.user.last_name}}</b></p>
+                </div> --}}
             </div>
         </li>
         {{/each}}
